@@ -27,6 +27,7 @@ fi
 
 for page_size in ${page_sizes}; do
   for size in ${sizes}; do
+    echo ./c2c-bench process transparent plain "$from" plain "$to" "${page_size}" "${size}" 100G >&2
     ./c2c-bench process transparent plain "$from" plain "$to" "${page_size}" "${size}" 100G |
       awk -vOFS=, -vpage_size="${page_size}" -vsize="${size}" '
         /^Throughput:/ { print page_size, size, $2 }
