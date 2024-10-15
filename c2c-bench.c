@@ -33,8 +33,8 @@
 // }
 //
 // The implementation uses AVX-512 and unrolling to so that the producer and
-// consumer can execute as many stores and loads as the microarchitecture
-// permits.
+// consumer can execute as many stores and loads per cycle as the
+// microarchitecture permits.
 
 #define _GNU_SOURCE
 
