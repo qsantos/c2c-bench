@@ -600,6 +600,18 @@ static int fork_create(pid_t* pid, task_t fn, void* arg) {
   }
 }
 
+static char* wstatus_to_str(int wstatus) {
+    if (WIFEXITED(wstatus))    return "WIFEXITED";
+    if (WEXITSTATUS(wstatus))  return "WEXITSTATUS";
+    if (WIFSIGNALED(wstatus))  return "WIFSIGNALED";
+    if (WTERMSIG(wstatus))     return "WTERMSIG";
+    if (WCOREDUMP(wstatus))    return "WCOREDUMP";
+    if (WIFSTOPPED(wstatus))   return "WIFSTOPPED";
+    if (WSTOPSIG(wstatus))     return "WSTOPSIG";
+    if (WIFCONTINUED(wstatus)) return "WIFCONTINUED";
+    return "<UNKNOWN WSTATUS>";
+}
+
 // Runs the producer and consumer in separate processes and waits for them
 // to complete.
 static void run_processes(struct params* params) {
@@ -617,7 +629,7 @@ static void run_processes(struct params* params) {
     pid_t pid = wait(&status);
     if (status) {
       const char* name = pid == consumer ? "consumer" : "producer";
-      fprintf(stderr, "%s process failed with error code %d\n", name, status);
+      fprintf(stderr, "%s process failed with error code %d (%s)\n", name, status, wstatus_to_str(status));
       exit(1);
     }
   }
