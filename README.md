@@ -23,10 +23,10 @@ c2c-bench mode hugepage-type \
 
 The arguments are:
 
-* `mode`
+* `mode`: how to run the benchmark tasks
   * `process`: execute the producer and consumer in separate processes.
   * `thread`: execute the producer and consumer in threads of one process.
-* `hugepage-type`
+* `hugepage-type`: how to allocate huge pages, if necessary
   * `explicit`: specify a huge page size while allocating memory. This
     requires a sufficient number of huge pages to be reserved using
     `/sys/kernel/mm/hugepages/`. See
@@ -35,13 +35,13 @@ The arguments are:
   * `transparent`: rely on the kernel to allocate transparent huge pages.
     The kernel may fall back to using 4 KiB pages if it cannot allocate
     enough huge pages, e.g. due to fragmentation.
-* `producer-type`
+* `producer-type`: implementation of the producer task to use
   * `plain`: uses 512-bit stores to write data
   * `cldemote`: uses the `CLDEMOTE` instruction to force writes into the
      L3 cache. On microarchitectures without CLDEMOTE support, the CLDEMOTE
      instruction is treated as a no-op.
 * `producer-cpu`: processor number on which to run the producer task.
-* `consumer-type`
+* `consumer-type`: implementation of the consumer task to use
   * `plain`: uses 512-bit loads to read data
   * `cldemote`: uses the `CLDEMOTE` instruction to evict data from the
      core-private cache immediately after reading it. On microarchitectures
@@ -60,7 +60,7 @@ The arguments are:
   a chunk of data equal to half of the working set -- see c2c-bench.c for
   details.
   
-  As with the `page-size` option, sizes may be written with a 'k', `M`, or `G`
+  As with the `page-size` option, sizes may be written with a `k`, `M`, or `G`
   suffix.
 * `target-size`: target amount of data to transfer between the producer and
   consumer. This controls how long the benchmark runs before terminating.
