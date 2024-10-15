@@ -7,7 +7,7 @@ and AMD processors running Linux.
 Building the benchmark
 ----------------------
 
-Run `make`.
+Run `make` with either `clang` or `gcc` available.
 
 Running the benchmark
 ---------------------
@@ -15,9 +15,9 @@ Running the benchmark
 The benchmark must be run as follows:
 
 ```
-c2c-bench mode hugepage-type \\
-          producer-type producer-cpu \\
-          consumer-type consumer-cpu \\
+c2c-bench mode hugepage-type \
+          producer-type producer-cpu \
+          consumer-type consumer-cpu \
           page-size working-set-size total-size
 ```
 
